@@ -1,26 +1,58 @@
 <template>
   <div class="container">
     <div class="formulario">
-      <input placeholder="Informe o nome do cliente" type="text" />
-      <input placeholder="Informe a conta do cliente" type="number" />
-      <input placeholder="Informe o cpf do cliente" type="text" />
-      <input placeholder="Cliente, digite uma senha" type="password" />
-      <button  @click.prevent="cadastrarConta()">Cadastrar Correntista</button>
+      <h1>{{ this.mensagem }}</h1>
+      <form @submit.prevent="abrirConta">
+        <input
+          v-model="usuario.nome"
+          placeholder="Informe o nome do cliente"
+          type="text"
+        />
+        <input
+          v-model="usuario.conta"
+          placeholder="Informe a conta do cliente"
+          type="number"
+        />
+        <input
+          v-model="usuario.cpf"
+          placeholder="Informe o cpf do cliente"
+          type="text"
+        />
+        <input
+          v-model="usuario.senha"
+          placeholder="Cliente, digite uma senha"
+          type="password"
+        />
+        <button>Cadastrar Correntista</button>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
-
+import Usuario from "../services/usuarios";
 
 export default {
-
-  methods:{
-    cadastrarConta(){
-      this.visivel = !this.visivel
-    }
-  }
-}
+  data() {
+    return {
+      mensagem: "",
+      usuario: {
+        nome: "",
+        conta: "",
+        cpf: "",
+        senha: "",
+      },
+    };
+  },
+  methods: {
+    abrirConta() {
+      Usuario.abrirConta(this.usuario).then((resposta) => {
+        this.mensagem = "Salvo com sucesso";
+        console.log(resposta);
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -29,6 +61,19 @@ export default {
   display: flex;
   border: solid 1px;
   background-color: darkgray;
+}
+h1 {
+  position: relative;
+  font-family: "Roboto", sans-serif;
+  background-color: #b1f1c1;
+  border-radius: 7px;
+  color: black;
+  padding: 20px 45px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-size: 32px;
 }
 
 button {
@@ -49,7 +94,6 @@ button:active {
   border-bottom: 2px solid #0d47a1;
   top: 4px;
   border-radius: 7px;
-
 }
 input::placeholder {
   font-family: "Roboto", sans-serif;

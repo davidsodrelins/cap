@@ -1,28 +1,55 @@
 <template>
   <div class="container">
     <div class="formulario">
-      <h1>{{this.saldo}}</h1>
-      <input placeholder="Informe o número da conta" type="text" />
-      <input placeholder="Digite sua senha" type="password" />
-      <button @click="consultarSaldo()">Consultar Saldo</button>
+      <h1>{{ this.mensagem }}</h1>
+      <form @submit.prevent="consultarSaldo">
+        <input
+          v-model="usuario.conta"
+          placeholder="Informe o número da conta"
+          type="text"
+        />
+        <input
+          v-model="usuario.senha"
+          placeholder="Digite sua senha"
+          type="password"
+        />
+        <button>Consultar Saldo</button>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
+import Usuario from "../services/usuarios";
+
 export default {
-
-  props:{
-    saldo: String
+  props: {
+    saldo: String,
+  },
+  data() {
+    return {
+      mensagem: "",
+      usuario: {
+        conta: "",
+        senha: "",
+      },
+      teste: { conta: "1", senha: "1" },
+    };
+  },
+  mounted() {
+    Usuario.consultarSaldo(this.teste).then((resposta) => {
+      console.log(this.usuario.saldo || "Erro ao consultar o saldo");
+      console.log(resposta.data);
+    });
   },
 
-  computed(){
-    this.consultarSaldo();
-  },
   methods: {
     consultarSaldo() {
-      this.saldo =  "R$ "+"40";
-      return this.saldo ;
+      console.log(this.usuario);
+      Usuario.consultarSaldo(this.usuario).then((resposta) => {
+        this.mensagem = resposta.data["message"];
+        console.log(resposta);
+      });
     },
   },
 };

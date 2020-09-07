@@ -19,7 +19,7 @@ class CreateUsuariosTable extends Migration
             $table->string('cpf');
             $table->string('conta');
             $table->string('senha');
-            $table->decimal('saldo');
+            $table->decimal('saldo')->default(0);
             $table->timestamps();
         });
     }

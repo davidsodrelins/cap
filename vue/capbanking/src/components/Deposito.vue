@@ -1,25 +1,51 @@
 <template>
   <div class="container">
     <div class="formulario">
-      <input placeholder="Informe o nome do cliente" type="text" />
-      <input placeholder="Informe a conta do cliente" type="number" />
-      <input placeholder="Informe o cpf do cliente" type="text" />
-      <input placeholder="Informe o valor para depósito" type="number" />
-      <button @click.prevent="depositar()">Depositar</button>
+      <h1>{{ this.mensagem }}</h1>
+      <form @submit.prevent="depositar">
+        <input
+          v-model="deposito.favorecido"
+          placeholder="Informe o nome do favorecido"
+          type="text"
+        />
+        <input
+          v-model="deposito.conta"
+          placeholder="Informe a conta do favorecido"
+          type="number"
+        />
+        <input
+          v-model="deposito.valor"
+          placeholder="Informe o valor para depósito"
+          type="number"
+        />
+        <button>Depositar</button>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
-
+import Usuario from "../services/usuarios";
 
 export default {
-
-  methods:{
-    depositar(){
-      return true;
-    }
-  }
+  data() {
+    return {
+      mensagem: "",
+      deposito: {
+        favorecido: "",
+        conta: "",
+        valor: ""
+      },
+    };
+  },
+  methods: {
+    depositar() {
+      Usuario.realizarDeposito(this.deposito).then((resposta) => {
+        this.mensagem = "Depósito realizado com sucesso";
+        console.log(resposta.data);
+      });
+    },
+  },
 }
 </script>
 
@@ -30,7 +56,19 @@ export default {
   border: solid 1px;
   background-color: darkgray;
 }
-
+h1 {
+  position: relative;
+  font-family: "Roboto", sans-serif;
+  background-color: #b1f1c1;
+  border-radius: 7px;
+  color: black;
+  padding: 20px 45px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-size: 32px;
+}
 button {
   position: relative;
   font-family: "Roboto", sans-serif;
@@ -49,7 +87,6 @@ button:active {
   border-bottom: 2px solid #0d47a1;
   top: 4px;
   border-radius: 7px;
-
 }
 input::placeholder {
   font-family: "Roboto", sans-serif;

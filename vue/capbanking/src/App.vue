@@ -4,9 +4,9 @@
     <div class="container grid-lg ">
       <header class="navbar">
         <section class="navbar-section">
-          <router-link to="/conta" class=""
+          <!-- <router-link to="/conta" class=""
             >Abrir Conta</router-link
-          >
+          > -->
           <router-link to="/saque" class="opcao"
             >Saque</router-link
           >

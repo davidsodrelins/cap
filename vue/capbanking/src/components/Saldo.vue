@@ -33,21 +33,12 @@ export default {
         conta: "",
         senha: "",
       },
-      teste: { conta: "1", senha: "1" },
     };
-  },
-  mounted() {
-    Usuario.consultarSaldo(this.teste).then((resposta) => {
-      console.log(this.usuario.saldo || "Erro ao consultar o saldo");
-      console.log(resposta.data);
-    });
   },
 
   methods: {
     consultarSaldo() {
-      console.log(this.usuario);
       Usuario.consultarSaldo(this.usuario).then((resposta) => {
-        this.mensagem = resposta.data["message"];
         console.log(resposta);
       });
     },

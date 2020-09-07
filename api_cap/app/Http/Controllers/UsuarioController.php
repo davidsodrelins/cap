@@ -15,7 +15,8 @@ class UsuarioController extends Controller
  
     public function store(Request $request)
     {
-        Usuario::create($request->all());
+        $usuario = Usuario::create($request->all());
+        return response($usuario);
     }
 
     public function saldo(Request $request){
@@ -28,7 +29,7 @@ class UsuarioController extends Controller
         if(!$usuario){
             return ["message"=>"Não foi possível realizar a consulta do saldo.", "Erro:"=>$usuario];
         }
-        return $usuario->saldo; 
+        return response($usuario); 
        }
 
     public function saque(Request $request){
@@ -50,7 +51,7 @@ class UsuarioController extends Controller
 
         $usuario->save();
 
-        return $usuario->saldo;
+        return response($usuario); 
     }
 
     public function deposito(Request $request){
@@ -67,7 +68,7 @@ class UsuarioController extends Controller
 
         $usuario->save();
 
-        return $usuario->saldo;
+        return response($usuario); 
     }
 
     public function show($id)

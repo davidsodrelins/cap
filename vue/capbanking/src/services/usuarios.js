@@ -1,19 +1,16 @@
-import {http} from './config'
+import { http } from "./config";
 
 export default {
-  
-  consultarSaldo:(usuario)=>{
-    return http.get('saldo', usuario);
+  consultarSaldo: (usuario) => {
+      return http.get("saldo", usuario);
   },
-  abrirConta:(usuario)=>{
-    return http.post('usuarios', usuario)
+  abrirConta: (usuario) => {
+    return http.post("usuarios", usuario);
   },
-  realizarSaque:(saque)=>{
-    return http.put('saque', saque)
+  realizarSaque: (saque) => {
+    return http.put("saque", saque);
   },
-  realizarDeposito:(deposito)=>{
-    return http.put('deposito', deposito)
+  realizarDeposito: (deposito) => {
+    return http.put("deposito", deposito);
   },
-  
-
-}
+};
